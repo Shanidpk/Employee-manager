@@ -1,0 +1,76 @@
+<div class="main">
+    <section class="container">
+        <div class="row">
+            <div class="col-md-6 mt-2">
+                <h2 class="text-dark">EMPLOYE MANAGE</h2>
+            </div>
+            <div class="col ml-auto text-right">
+                <button type="button" class="addbtn btn btn-outline-dark mt-3" (click)="OnAddEmployee()">Add Employee</button>
+            </div>
+        </div>
+    
+        <hr>
+    
+        <div class="row">
+            <div class="col-md-4" *ngFor="let details of employee">   <!--loop the employeee-->
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-tittle">{{details.name}}</h5>
+                        <h6 class="card-subtittle mb-2 text-muted">{{details.position}}</h6>
+                        <span class="badge"
+                            [ngClass]="{'bg-success': details.dept=='Design','bg-danger' : details.dept !='Design' }">{{details.dept}}</span>
+                        <hr>
+                        <button type="button" class="btn btn-outline-primary mb-2"
+                            (click)="onEditEmployee(details)">Edit</button>
+                        <button type="button" class="btn btn-outline-danger mb-2 ms-2"
+                            (click)="ondelete(details._id)">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+    </section>
+    
+    
+    <div class="modal fade show" [class.show]="showmodel">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5>{{editmode? 'Update Employee':'Add Employee'}}</h5>
+                    <button (click)="onClosemodal()" class="close" type="button" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+    
+                <form [formGroup]="empForm">
+                    <div class="modal-body">
+                        <div>
+                            <label for="">Enter name</label>
+                            <input type="text" class="form-control" formControlName="name">
+    
+                        </div>
+                        <div>
+                            <label for="">Enter position</label>
+                            <input type="text" class="form-control mt-2" formControlName="position">
+                            <small></small>
+                        </div>
+                        <div>
+                            <label for="">Enter department</label>
+                            <input type="text" class="form-control mt-2" formControlName="dept">
+                            <small></small>
+                        </div>
+                        <div>
+                            <button type="button" (click)="onClosemodal()" class="btn btn-secondary mt-2"
+                                data-dismiss="modal">Close</button>
+                            <button type="submit" (click)="onEmpSubmit()" class="btn btn-outline-success mt-2 ms-2"
+                                data-dismiss="modal">{{editmode? 'Update Employee':'Add Employee'}}</button>
+                        </div>
+    
+    
+                    </div>
+                </form>
+    
+            </div>
+        </div>
+    
+    </div>
+</div>
